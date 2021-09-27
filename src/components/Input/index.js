@@ -21,7 +21,6 @@ const defaultProps = {
 
 const Input = forwardRef(({ className, label, name, invalid, info, ...inputProps }, ref) => {
   
-
   return (
     <div>
         <StyledInput className={className}>
