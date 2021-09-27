@@ -13,8 +13,8 @@ export const color = {
 };
 
 export const font = {
-  regular: 'font-family: "Roboto-Regular"; font-weight: 500;',
-  bold: 'font-family: "Roboto-Regular"; font-weight: 400;',
+  regular: 'font-family: "Roboto-Regular"; font-weight: 400;',
+  bold: 'font-family: "Roboto-Medium"; font-weight: 500;',
   size: (size) => `font-size: ${size}px;`,
 };
 
