@@ -1,11 +1,17 @@
+import { useState } from "react";
 import AutoCompleteInput from "components/AutoCompleteInput";
 import { HeaderWrapper } from "./styles";
 
 function Header() {
+  const [value, setValue] = useState("");
   return (
     <HeaderWrapper>
       <div className='input-wrapper'>
-        <AutoCompleteInput placeholder='Search for an organisation' />
+        <AutoCompleteInput
+          value={value}
+          onChange={setValue}
+          placeholder='Search for an organisation'
+        />
       </div>
     </HeaderWrapper>
   );

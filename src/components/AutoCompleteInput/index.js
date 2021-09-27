@@ -1,4 +1,3 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
 import isEmpty from "lodash/isEmpty";
 
@@ -12,6 +11,7 @@ const propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
   onChange: PropTypes.func,
+  selectOption: PropTypes.func,
 };
 
 const defaultProps = {
@@ -20,11 +20,22 @@ const defaultProps = {
   data: undefined,
   isLoading: undefined,
   onChange: () => {},
+  selectOption: () => {},
 };
 
-function AutoCompleteInput({ placeholder, value, onChange, isLoading, data }) {
+function AutoCompleteInput({
+  placeholder,
+  value,
+  onChange,
+  isLoading,
+  data,
+  selectOption,
+}) {
   function handleInputChange(e) {
     onChange(e.target.value);
+  }
+  function handleOptionSelect(params) {
+    selectOption();
   }
 
   return (
@@ -38,7 +49,7 @@ function AutoCompleteInput({ placeholder, value, onChange, isLoading, data }) {
         (isLoading && (
           <SuggestionsWrapper>
             {/* <p className='no-results'>No Results</p> */}
-            {data && renderSuggestionsList()}
+            {data && renderSuggestionsList(handleOptionSelect, data)}
             {isLoading && renderLoadingIndicator()}
           </SuggestionsWrapper>
         ))}
@@ -46,11 +57,11 @@ function AutoCompleteInput({ placeholder, value, onChange, isLoading, data }) {
   );
 }
 
-function renderSuggestionsList(params) {
+function renderSuggestionsList(handleOptionSelect = () => {}, data = []) {
   return (
     <SuggestionsList>
       <ul>
-        <li>Option</li>
+        <li onClick={handleOptionSelect}>Option</li>
         <li>Option</li>
         <li>Option</li>
       </ul>
@@ -58,7 +69,7 @@ function renderSuggestionsList(params) {
   );
 }
 
-function renderLoadingIndicator(params) {
+function renderLoadingIndicator() {
   return <img src={loader} alt='loading...' />;
 }
 
