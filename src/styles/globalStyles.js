@@ -8,14 +8,14 @@ export default createGlobalStyle`
   }
 
   body {
-    color: ${color.primary.default};
+    color: ${color.black};
     -webkit-tap-highlight-color: transparent;
     line-height: 1.2;
     padding: 0;
     margin: 0;
     ${font.size(16)}
     ${font.regular}
-    background: ${color.secondary};
+    background: #F4F4F4;
   }
 
 
