@@ -1,13 +1,14 @@
-import Input from "components/Input"
-import { HeaderWrapper } from "./styles"
-
+import Input from "components/Input";
+import { HeaderWrapper } from "./styles";
 
 function Header() {
-    return (
-        <HeaderWrapper>
-            <Input />
-        </HeaderWrapper>
-    )
+  return (
+    <HeaderWrapper>
+      <div className="input-wrapper">
+        <Input />
+      </div>
+    </HeaderWrapper>
+  );
 }
 
-export default Header
+export default Header;

@@ -12,7 +12,7 @@ const defaultProps = {
   value: undefined,
 };
 
- function Tooltip({ value }) {
+function Tooltip({ value }) {
   return (
     <ToolTipWrapper>
       <p>{value}</p>
@@ -23,8 +23,7 @@ const defaultProps = {
 Tooltip.propTypes = propTypes;
 Tooltip.defaultProps = defaultProps;
 
-export default Tooltip
-
+export default Tooltip;
 
 const ToolTipWrapper = styled.div`
   background: ${color.darkGrey};

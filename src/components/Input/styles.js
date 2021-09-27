@@ -5,15 +5,15 @@ import { color, font } from "styles/styleUtils";
 const StyledInput = styled.div`
   position: relative;
   display: inline-block;
-  height: 46px;
+  height: 40px;
   width: 100%;
 `;
 
 const InputElement = styled.input`
   height: 100%;
   width: 100%;
-  padding: 0 7px;
-  height: 46px;
+  padding: 13px 10px;
+  height: 40px;
   border: 1px solid ${color.lightGrey};
   color: ${color.black};
   background: ${color.white};
