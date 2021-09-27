@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import isEmpty from "lodash/isEmpty";
 
 import { SuggestionsList, SuggestionsWrapper } from "./styles";
 import Input from "components/Input";
@@ -7,27 +8,23 @@ import loader from "assets/images/loader.gif";
 
 const propTypes = {
   placeholder: PropTypes.string,
-  name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  label: PropTypes.string,
-  invalid: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.object),
+  isLoading: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
 const defaultProps = {
   placeholder: undefined,
-  name: undefined,
   value: undefined,
-  label: undefined,
-  invalid: undefined,
+  data: undefined,
+  isLoading: undefined,
   onChange: () => {},
 };
 
-function AutoCompleteInput({ placeholder }) {
-  const [value, setValue] = useState(false);
-
+function AutoCompleteInput({ placeholder, value, onChange, isLoading, data }) {
   function handleInputChange(e) {
-    setValue(e.target.value);
+    onChange(e.target.value);
   }
 
   return (
@@ -37,11 +34,14 @@ function AutoCompleteInput({ placeholder }) {
         onChange={handleInputChange}
         placeholder={placeholder}
       />
-      <SuggestionsWrapper>
-        <p className="no-results">No Results</p>
-        {renderSuggestionsList()}
-        {renderLoadingIndicator()}
-      </SuggestionsWrapper>
+      {!isEmpty(data) ||
+        (isLoading && (
+          <SuggestionsWrapper>
+            {/* <p className='no-results'>No Results</p> */}
+            {data && renderSuggestionsList()}
+            {isLoading && renderLoadingIndicator()}
+          </SuggestionsWrapper>
+        ))}
     </div>
   );
 }
