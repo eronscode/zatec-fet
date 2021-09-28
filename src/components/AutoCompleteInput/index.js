@@ -4,6 +4,7 @@ import isEmpty from "lodash/isEmpty";
 import { SuggestionsList, SuggestionsWrapper } from "./styles";
 import Input from "components/Input";
 import loader from "assets/images/loader.gif";
+import useDropdownVisible from "hooks/useDropdownVisible";
 
 const propTypes = {
   placeholder: PropTypes.string,
@@ -31,22 +32,25 @@ function AutoCompleteInput({
   data,
   selectOption,
 }) {
+  const { ref, isDropdownVisible, setIsDropdownVisible } = useDropdownVisible();
+
   function handleInputChange(e) {
     onChange(e.target.value);
+    setIsDropdownVisible(true);
   }
   function handleOptionSelect(params) {
     selectOption();
+    setIsDropdownVisible(false);
   }
 
-
   return (
-    <div>
+    <div ref={ref}>
       <Input
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}
       />
-      {(!isEmpty(data) || isLoading) && (
+      {((!isEmpty(data) && isDropdownVisible) || isLoading) && (
         <SuggestionsWrapper>
           {isLoading && renderLoadingIndicator()}
           {data?.total_count === 0 && <p className='no-results'>No Results</p>}

@@ -4,7 +4,7 @@ import { useAppContext } from "context/app.context";
 import useSearch from "hooks/useSearch";
 
 function Header() {
-  const { value, setValue, data, isLoading } = useSearch();
+  const { value, setValue, data, setData, isLoading } = useSearch();
   const { setOrganization } = useAppContext();
 
   function handleInputChange(value) {
@@ -13,6 +13,7 @@ function Header() {
 
   function selectOrganization(data) {
     setOrganization(data);
+    setData(null)
   }
 
   return (
