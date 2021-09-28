@@ -33,7 +33,7 @@ export const mixins = {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   `,
-  customScrollbar: ({ width = 8, background = color.primary.inc4 } = {}) => css`
+  customScrollbar: ({ width = 10, background = color.darkGrey } = {}) => css`
     &::-webkit-scrollbar-track {
       background-color: #ebecf0;
     }

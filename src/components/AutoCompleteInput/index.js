@@ -38,6 +38,7 @@ function AutoCompleteInput({
     selectOption();
   }
 
+
   return (
     <div>
       <Input
@@ -45,14 +46,13 @@ function AutoCompleteInput({
         onChange={handleInputChange}
         placeholder={placeholder}
       />
-      {!isEmpty(data) ||
-        (isLoading && (
-          <SuggestionsWrapper>
-            {/* <p className='no-results'>No Results</p> */}
-            {data && renderSuggestionsList(handleOptionSelect, data)}
-            {isLoading && renderLoadingIndicator()}
-          </SuggestionsWrapper>
-        ))}
+      {(!isEmpty(data) || isLoading) && (
+        <SuggestionsWrapper>
+          {isLoading && renderLoadingIndicator()}
+          {data?.total_count === 0 && <p className='no-results'>No Results</p>}
+          {!isEmpty(data) && renderSuggestionsList(handleOptionSelect, data)}
+        </SuggestionsWrapper>
+      )}
     </div>
   );
 }
@@ -60,11 +60,13 @@ function AutoCompleteInput({
 function renderSuggestionsList(handleOptionSelect = () => {}, data = []) {
   return (
     <SuggestionsList>
-      <ul>
-        <li onClick={handleOptionSelect}>Option</li>
-        <li>Option</li>
-        <li>Option</li>
-      </ul>
+      {data?.items.map((item) => {
+        return (
+          <ul>
+            <li onClick={() => handleOptionSelect(item)}>{item.login}</li>
+          </ul>
+        );
+      })}
     </SuggestionsList>
   );
 }

@@ -8,6 +8,9 @@ export const SuggestionsWrapper = styled.div`
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   margin-top: 10px;
+  height: 200px;
+  ${mixins.scrollableY}
+  ${mixins.customScrollbar}
   .no-results {
     font-style: italic;
     color: ${color.lightGrey};

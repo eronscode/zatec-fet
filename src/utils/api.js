@@ -29,8 +29,8 @@ const api = (method, url, variables) =>
         resolve(response.data);
       },
       (error) => {
-        if (error.response) {
-          reject(error.response.data.error);
+        if ([403, 503, 422, 304, 404].includes(error.response.status)) {
+          reject(error.response.status);
         } else {
           reject(defaults.error);
         }
@@ -38,6 +38,7 @@ const api = (method, url, variables) =>
     );
   });
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   get: (...args) => api("get", ...args),
   post: (...args) => api("post", ...args),
