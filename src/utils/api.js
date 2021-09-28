@@ -29,8 +29,8 @@ const api = (method, url, variables) =>
         resolve(response.data);
       },
       (error) => {
-        if ([403, 503, 422, 304, 404].includes(error.response.status)) {
-          reject(error.response.status);
+        if ([403, 503, 422, 304, 404].includes(error?.response?.status)) {
+          reject(error?.response?.status);
         } else {
           reject(defaults.error);
         }

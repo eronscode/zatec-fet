@@ -5,8 +5,14 @@ import { color, font } from "styles/styleUtils";
 const StyledInput = styled.div`
   position: relative;
   display: inline-block;
-  height: 40px;
   width: 100%;
+  label {
+    ${font.bold};
+    ${font.size(12)};
+    line-height: 14px;
+    margin-bottom: 4px;
+    display: block;
+  }
 `;
 
 const InputElement = styled.input`

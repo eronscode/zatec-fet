@@ -9,6 +9,6 @@ export const HeaderWrapper = styled.nav`
   padding: 10px 20px;
 
   .input-wrapper {
-      width: 30%;
+      width: 320px;
   }
 `;

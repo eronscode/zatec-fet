@@ -46,11 +46,13 @@ function AutoCompleteInput({
   return (
     <div ref={ref}>
       <Input
+        styles={{ height: "40px" }}
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}
       />
-      {((!isEmpty(data) && isDropdownVisible) || (isLoading && data===null)) && (
+      {((!isEmpty(data) && isDropdownVisible) ||
+        (isLoading && data === null)) && (
         <SuggestionsWrapper>
           {isLoading && renderLoadingIndicator()}
           {data?.total_count === 0 && <p className='no-results'>No Results</p>}

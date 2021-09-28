@@ -27,20 +27,18 @@ const Input = forwardRef(
     ref
   ) => {
     return (
-      <div>
-        <StyledInput className={className}>
-          {label && <label htmlFor={name}>{label} </label>}
-          <InputElement
-            value={value}
-            invalid={invalid}
-            name={name}
-            ref={ref}
-            onChange={onChange}
-            {...inputProps}
-          />
-          {invalid && <ErrorText>{invalid}</ErrorText>}
-        </StyledInput>
-      </div>
+      <StyledInput className={className}>
+        {label && <label htmlFor={name}>{label} </label>}
+        <InputElement
+          value={value}
+          invalid={invalid}
+          name={name}
+          ref={ref}
+          onChange={onChange}
+          {...inputProps}
+        />
+        {invalid && <ErrorText>{invalid}</ErrorText>}
+      </StyledInput>
     );
   }
 );

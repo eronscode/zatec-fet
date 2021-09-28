@@ -12,6 +12,8 @@ export const SuggestionsWrapper = styled.div`
   max-height: 200px;
   ${mixins.scrollableY}
   ${mixins.customScrollbar}
+  position: relative;
+  z-index: 1;
   .no-results {
     font-style: italic;
     color: ${color.lightGrey};
