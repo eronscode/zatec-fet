@@ -4,7 +4,7 @@ export const INITIAL_STATE = {
 
 export function appReducer(state, action) {
   switch (action.type) {
-    case "TOGGLE_CART":
+    case "SET_ORGANIZATION":
       return { ...state, organization: action.data };
 
     default: {

@@ -7,7 +7,7 @@ function useAppActions() {
   const [state, dispatch] = useReducer(appReducer, INITIAL_STATE);
 
   function setOrganization(data) {
-    dispatch({ type: "INITIALIZE_PRODUCT", data });
+    dispatch({ type: "SET_ORGANIZATION", data });
   }
 
   return {
