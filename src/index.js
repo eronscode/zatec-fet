@@ -5,14 +5,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import "./styles/fontStyle.css";
 import BaseStyles from "styles/globalStyles";
+import { AppProvider } from "context/app.context";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BaseStyles />
-    <App />
+    <AppProvider>
+      <BaseStyles />
+      <App />
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById("app")
 );
-
 
 reportWebVitals();
