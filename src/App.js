@@ -1,7 +1,13 @@
 import Header from "components/Header";
+import MainPanel from "components/MainPanel";
 
 function App() {
-  return <Header></Header>;
+  return (
+    <>
+      <Header />
+      <MainPanel />
+    </>
+  );
 }
 
 export default App;
