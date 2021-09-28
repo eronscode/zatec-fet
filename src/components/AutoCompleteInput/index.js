@@ -9,7 +9,7 @@ import useDropdownVisible from "hooks/useDropdownVisible";
 const propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.object,
   isLoading: PropTypes.bool,
   onChange: PropTypes.func,
   selectOption: PropTypes.func,
@@ -38,8 +38,8 @@ function AutoCompleteInput({
     onChange(e.target.value);
     setIsDropdownVisible(true);
   }
-  function handleOptionSelect(params) {
-    selectOption();
+  function handleOptionSelect(value) {
+    selectOption(value);
     setIsDropdownVisible(false);
   }
 
@@ -50,7 +50,7 @@ function AutoCompleteInput({
         onChange={handleInputChange}
         placeholder={placeholder}
       />
-      {((!isEmpty(data) && isDropdownVisible) || isLoading) && (
+      {((!isEmpty(data) && isDropdownVisible) || (isLoading && data===null)) && (
         <SuggestionsWrapper>
           {isLoading && renderLoadingIndicator()}
           {data?.total_count === 0 && <p className='no-results'>No Results</p>}
@@ -66,7 +66,7 @@ function renderSuggestionsList(handleOptionSelect = () => {}, data = []) {
     <SuggestionsList>
       {data?.items.map((item) => {
         return (
-          <ul>
+          <ul key={item.id}>
             <li onClick={() => handleOptionSelect(item)}>{item.login}</li>
           </ul>
         );

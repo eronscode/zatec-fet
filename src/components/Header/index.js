@@ -14,6 +14,7 @@ function Header() {
   function selectOrganization(data) {
     setOrganization(data);
     setData(null)
+    setValue(data?.login)
   }
 
   return (
