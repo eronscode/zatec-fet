@@ -2,9 +2,10 @@ import AutoCompleteInput from "components/AutoCompleteInput";
 import { HeaderWrapper } from "./styles";
 import { useAppContext } from "context/app.context";
 import useSearch from "hooks/useSearch";
+import { fetchOrganizations } from "hooks/useFetchOrganizations";
 
 function Header() {
-  const { value, setValue, data, setData, isLoading } = useSearch();
+  const { value, setValue, data, setData, isLoading } = useSearch(fetchOrganizations);
   const { setOrganization } = useAppContext();
 
   function handleInputChange(value) {
@@ -13,8 +14,8 @@ function Header() {
 
   function selectOrganization(data) {
     setOrganization(data);
-    setData(null)
-    setValue(data?.login)
+    setData(null);
+    setValue(data?.login);
   }
 
   return (
