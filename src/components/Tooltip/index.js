@@ -30,9 +30,10 @@ const ToolTipWrapper = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   p {
-    font-size: ${font.size(12)};
+    ${font.size(12)};
     line-height: 14px;
     color: ${color.white};
     padding: 13px 10px;
+    word-break: break-word;
   }
 `;

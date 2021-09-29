@@ -46,9 +46,12 @@ const InputElement = styled.input`
     `}
 `;
 
-const ErrorText = styled.p`
-  color: ${color.red};
-  ${font.size(13)}
+const ErrorContainer = styled.div`
+  position: absolute;
+  right: -106px;
+  top: -60px;
+  width: 200px;
+  text-align: center;
 `;
 
-export { InputElement, StyledInput, ErrorText };
+export { InputElement, StyledInput, ErrorContainer };

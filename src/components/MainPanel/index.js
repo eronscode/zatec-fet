@@ -7,7 +7,8 @@ import Filter from "components/Filter";
 function MainPanel() {
   const { organization } = useAppContext();
 
-  return !isEmpty(organization) ? (
+  // !isEmpty(organization) ? (
+  return (
     <MainPanelWrapper>
       <h1>Name of organisation</h1>
       <MainPanelContainer>
@@ -27,13 +28,14 @@ function MainPanel() {
         </MainPanelRow>
       </MainPanelContainer>
     </MainPanelWrapper>
-  ) : (
-    <MainPanelWrapper className='default-container'>
-      <div>
-        <p>Search for organization</p>
-      </div>
-    </MainPanelWrapper>
   );
+  // ) : (
+  //   <MainPanelWrapper className='default-container'>
+  //     <div>
+  //       <p>Search for organization</p>
+  //     </div>
+  //   </MainPanelWrapper>
+  // );
 }
 
 export default MainPanel;

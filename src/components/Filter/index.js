@@ -1,4 +1,5 @@
 import Input from "components/Input";
+import { useEffect } from "react";
 import { useState } from "react";
 import { FilterWrapper } from "./styles";
 
@@ -8,14 +9,29 @@ function Filter() {
     min: "",
     max: "",
   });
+  const [isError, setIsError] = useState("");
+  const { name, min, max } = value;
 
   function handleChange(e) {
-    setValue({
-      [e.target.name]: e.target.value,
-    });
+    let value = "";
+    if (["max", "min"].includes(e.target.name)) {
+      value = parseInt(e.target.value);
+    }
+    setValue((prev) => ({
+      ...prev,
+      [e.target.name]: value,
+    }));
   }
 
-  const { name, min, max } = value;
+  useEffect(() => {
+    if (min !== "" && max !== "") {
+      if (min >= max) {
+        setIsError("Conflicting min and max values");
+      } else {
+        setIsError("");
+      }
+    }
+  }, [min, max]);
 
   return (
     <FilterWrapper>
@@ -25,7 +41,7 @@ function Filter() {
           onChange={handleChange}
           name='name'
           value={name}
-          placeholder='Filter By Name'
+          placeholder='Type to filter'
         />
       </div>
       <div className='form-wrap'>
@@ -38,6 +54,7 @@ function Filter() {
               value={min}
               type='number'
               placeholder='Min.'
+              isError={isError}
             />
           </div>
           <div>
@@ -47,6 +64,8 @@ function Filter() {
               value={max}
               type='number'
               placeholder='Max.'
+              isError={isError}
+              errorMsg={isError}
             />
           </div>
         </div>

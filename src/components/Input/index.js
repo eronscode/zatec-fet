@@ -1,14 +1,17 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
-import { StyledInput, InputElement, ErrorText } from "./styles";
+import { StyledInput, InputElement, ErrorContainer } from "./styles";
+import { ErrorIcon } from "utils/icons";
+import Tooltip from "components/Tooltip";
 
 const propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
-  invalid: PropTypes.string,
+  isError: PropTypes.string,
+  errorMsg: PropTypes.string,
   onChange: PropTypes.func,
 };
 
@@ -17,28 +20,36 @@ const defaultProps = {
   name: undefined,
   value: undefined,
   label: undefined,
-  invalid: undefined,
+  isError: undefined,
+  errorMsg: undefined,
   onChange: () => {},
 };
 
 const Input = forwardRef(
   (
-    { className, label, name, invalid, onChange, value, ...inputProps },
+    { className, label, name, isError, errorMsg, onChange, value, ...inputProps },
     ref
   ) => {
     return (
-      <StyledInput className={className}>
+      <>
         {label && <label htmlFor={name}>{label} </label>}
-        <InputElement
-          value={value}
-          invalid={invalid}
-          name={name}
-          ref={ref}
-          onChange={onChange}
-          {...inputProps}
-        />
-        {invalid && <ErrorText>{invalid}</ErrorText>}
-      </StyledInput>
+        <StyledInput className={className}>
+          {errorMsg && (
+            <ErrorContainer>
+              <Tooltip value={errorMsg} />
+              <ErrorIcon />
+            </ErrorContainer>
+          )}
+          <InputElement
+            value={value}
+            invalid={isError}
+            name={name}
+            ref={ref}
+            onChange={onChange}
+            {...inputProps}
+          />
+        </StyledInput>
+      </>
     );
   }
 );
