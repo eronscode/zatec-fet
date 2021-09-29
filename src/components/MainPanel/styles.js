@@ -3,6 +3,21 @@ import { color, font } from "styles/styleUtils";
 
 export const MainPanelWrapper = styled.div`
   padding: 40px;
+  min-height: calc(100vh - 60px);
+
+  &.default-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      ${font.size(18)};
+      ${font.regular}
+      line-height: 21px;
+      text-align: center;
+      color: ${color.lightGrey};
+    }
+  }
+
   h1 {
     ${font.bold}
     ${font.size(18)};
