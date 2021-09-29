@@ -5,11 +5,12 @@ import useSearch from "hooks/useSearch";
 import { fetchOrganizations } from "hooks/useFetchOrganizations";
 
 function Header() {
-  const { value, setValue, data, setData, isLoading } = useSearch(fetchOrganizations);
+  const { value, setValue, data, setData, isLoading, handleSearch } = useSearch(fetchOrganizations);
   const { setOrganization } = useAppContext();
 
   function handleInputChange(value) {
     setValue(value);
+    handleSearch(value)
   }
 
   function selectOrganization(data) {

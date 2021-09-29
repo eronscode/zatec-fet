@@ -1,18 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { debounce } from "lodash";
-
 
 export default function useSearch(fetchApiFn) {
   const [value, setValue] = useState("");
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    if (value !== "") handleSearch();
-  }, [value]);
-
-  const handleSearch = debounce(() => {
-    fetchApiFn(value, setIsLoading, setData);
+  const handleSearch = debounce((newValue) => {
+    if (newValue !== "") fetchApiFn(newValue, setIsLoading, setData);
   }, 1000);
 
   return {
@@ -21,5 +16,6 @@ export default function useSearch(fetchApiFn) {
     data,
     setData,
     isLoading,
+    handleSearch,
   };
 }

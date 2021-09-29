@@ -46,7 +46,6 @@ function AutoCompleteInput({
   return (
     <div ref={ref}>
       <Input
-        styles={{ height: "40px" }}
         value={value}
         onChange={handleInputChange}
         placeholder={placeholder}
