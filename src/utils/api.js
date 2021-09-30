@@ -1,18 +1,14 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import { API_URL } from "./constants";
+import { handleApiErrorCodes } from "./methods";
 
 const defaults = {
   headers: () => ({
     "Content-Type": "application/json",
     //   Authorization: token ? `Bearer ${token}` : undefined,
   }),
-  error: {
-    code: "INTERNAL_ERROR",
-    message:
-      "Something went wrong. Please check your internet connection or contact our support.",
-    status: 503,
-    data: {},
-  },
+  error: 503,
 };
 
 const api = (method, url, variables) =>
@@ -38,6 +34,11 @@ const api = (method, url, variables) =>
     );
   });
 
+const handleApiError = (errorCode = null) => {
+  const error = handleApiErrorCodes(errorCode);
+  toast.error(error.message);
+};
+
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   get: (...args) => api("get", ...args),
@@ -45,4 +46,5 @@ export default {
   put: (...args) => api("put", ...args),
   patch: (...args) => api("patch", ...args),
   delete: (...args) => api("delete", ...args),
+  handleApiError,
 };

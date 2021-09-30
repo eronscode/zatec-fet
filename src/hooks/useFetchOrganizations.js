@@ -13,7 +13,7 @@ export async function fetchOrganizations(
     const response = await api.get(ApiEndpoints.GET_ORG(value));
     setData(response);
   } catch (error) {
-    console.log(error);
+    api.handleApiError(error);
   }
   setLoading(false);
 }

@@ -25,9 +25,15 @@ export const handleFilterOptions = (
   return newArray;
 };
 
-
 export const handleFilterStorage = (params) => {
-  const {name, min, max, organization, organizationFilter,  setOrganizationFilter} = params
+  const {
+    name,
+    min,
+    max,
+    organization,
+    organizationFilter,
+    setOrganizationFilter,
+  } = params;
   if (name !== "" || min !== "" || max !== "") {
     //check if organization is in filter state
     const id = organizationFilter.find(
@@ -66,5 +72,39 @@ export const handleFilterStorage = (params) => {
       setOrganizationFilter(copyOrg);
     }
   }
-}
+};
 
+export const handleApiErrorCodes = (errorCode) => {
+  switch (errorCode) {
+    case 304:
+      return {
+        message:
+          "Something went wrong. Please check your internet connection or contact our support.",
+      };
+    case 404:
+      return {
+        message:
+          "Something went wrong. Please check your internet connection or contact our support.",
+      };
+    case 403:
+      return {
+        message:
+          "API rate limit exceeded. Try waiting for sometime and Refreshing page",
+      };
+    case 422:
+      return {
+        message:
+          "Something went wrong. Please check your internet connection or contact our support.",
+      };
+    case 503:
+      return {
+        message:
+          "Something went wrong. Please check your internet connection or contact our support.",
+      };
+    default:
+      return {
+        message:
+          "Something went wrong. Please check your internet connection or contact our support.",
+      };
+  }
+};
