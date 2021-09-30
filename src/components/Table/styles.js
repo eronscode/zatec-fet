@@ -2,13 +2,19 @@ import styled from "styled-components";
 import { color, font, mixins } from "styles/styleUtils";
 
 export const TableWrapper = styled.div`
-    .pagination{
-        margin: 20px 0 0 0;
-        button{
-            ${mixins.clickable}
-        }
+  .pagination {
+    margin: 20px 0 0 0;
+    button {
+      ${mixins.clickable}
     }
-`
+  }
+
+  .noData {
+    ${font.size(12)}
+    line-height: 14px;
+    color: ${color.lightGrey};
+  }
+`;
 
 export const TableContainer = styled.table`
   width: 100%;
@@ -20,12 +26,15 @@ export const TableContainer = styled.table`
       ${font.bold}
       line-height: 14px;
       text-align: left;
+      span {
+        margin-left: 4px;
+      }
     }
     :hover {
       background: ${color.lightBlue};
     }
   }
-  tr {
+  tbody tr {
     background: ${color.white};
   }
   td {

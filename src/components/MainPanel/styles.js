@@ -34,7 +34,22 @@ export const MainPanelContainer = styled.div`
 `;
 export const MainPanelRow = styled.div`
   width: 50%;
+  .table-wrapper {
+    margin-top: 25px;
+  }
   @media screen and (max-width: 768px) {
     width: 100%;
+  }
+`;
+
+export const Loader = styled.div`
+  width: 100%;
+  text-align: center;
+  min-height: calc(100vh - 300px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 30px;
   }
 `;

@@ -1,58 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import isEmpty from "lodash/isEmpty";
-import { MainPanelWrapper, MainPanelContainer, MainPanelRow } from "./styles";
+import {
+  MainPanelWrapper,
+  MainPanelContainer,
+  MainPanelRow,
+  Loader,
+} from "./styles";
 import { useAppContext } from "context/app.context";
 import Filter from "components/Filter";
 import Table from "components/Table";
+import { columns } from "config/tableConfig";
+import { useFetchOrgRepos } from "hooks/useFetchOrgRepos";
+import loader from "assets/images/loader.gif";
 
 function MainPanel() {
   const { organization } = useAppContext();
-  const data = [
-    {
-      col1: "aello",
-      col2: 100,
-    },
-    {
-      col1: "jeact-table",
-      col2: 30,
-    },
-    {
-      col1: "mhatever",
-      col2: 50,
-    },
-    {
-      col1: "aello",
-      col2: 100,
-    },
-    {
-      col1: "jeact-table",
-      col2: 30,
-    },
-    {
-      col1: "mhatever",
-      col2: 50,
-    },
-  ];
+  const { data, isLoading } = useFetchOrgRepos(organization?.login);
 
-  const columns = [
-    {
-      Header: "Column 1",
-      accessor: "col1", // accessor is the "key" in the data
-      style:{
-        width: '20%'
-      },
-      width:100
-    },
-    {
-      Header: "Column 2",
-      accessor: "col2",
-    },
-  ];
+  const transformTableData = data?.map((item) => {
+    return {
+      repo_name: item.name,
+      repo_issue: item.open_issues,
+      repo_stars: item.stargazers_count,
+    };
+  });
 
-  // !isEmpty(organization) ? (
-  return (
+  return !isEmpty(organization) ? (
     <MainPanelWrapper>
-      <h1>Name of organisation</h1>
+      <h1>{organization?.login}</h1>
       <MainPanelContainer>
         <MainPanelRow>
           <Filter />
@@ -62,22 +37,31 @@ function MainPanel() {
         </MainPanelRow>
       </MainPanelContainer>
       <MainPanelContainer>
-        <MainPanelRow>
-          <Table tableColumns={columns} tableData={data} />
-        </MainPanelRow>
-        <MainPanelRow>
-          <p>pot</p>
-        </MainPanelRow>
+        {isLoading ? (
+          <Loader>
+            <img src={loader} alt='loading...' />
+          </Loader>
+        ) : (
+          <>
+            <MainPanelRow>
+              <div className='table-wrapper'>
+                <Table tableColumns={columns} tableData={transformTableData} />
+              </div>
+            </MainPanelRow>
+            <MainPanelRow>
+              <p>pot</p>
+            </MainPanelRow>
+          </>
+        )}
       </MainPanelContainer>
     </MainPanelWrapper>
+  ) : (
+    <MainPanelWrapper className='default-container'>
+      <div>
+        <p>Search for organization</p>
+      </div>
+    </MainPanelWrapper>
   );
-  // ) : (
-  //   <MainPanelWrapper className='default-container'>
-  //     <div>
-  //       <p>Search for organization</p>
-  //     </div>
-  //   </MainPanelWrapper>
-  // );
 }
 
 export default MainPanel;

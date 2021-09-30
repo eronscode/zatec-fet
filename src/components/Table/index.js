@@ -2,12 +2,14 @@ import { useMemo } from "react";
 import { usePagination, useSortBy, useTable } from "react-table";
 import PropTypes from "prop-types";
 import { TableContainer, TableWrapper } from "./styles";
+import { ChevronIcon } from "utils/icons";
 
 const propTypes = {
   className: PropTypes.string,
   tableData: PropTypes.arrayOf(PropTypes.object),
   tableColumns: PropTypes.arrayOf(PropTypes.object),
   isLoading: PropTypes.bool,
+  pageLength: PropTypes.number,
 };
 
 const defaultProps = {
@@ -15,18 +17,22 @@ const defaultProps = {
   tableData: [],
   tableColumns: [],
   isLoading: undefined,
+  pageLength: 10,
 };
 
-function Table({ tableData, tableColumns }) {
-  const data = useMemo(() => tableData, []);
+function Table({ tableData, tableColumns, pageLength }) {
+  const data = useMemo(() => tableData, [tableData]);
   const columns = useMemo(() => tableColumns, []);
-//   let useSelection = (hooks) => {
-//     hooks.visibleColumns.push((columns) => [
-//       ...columns,
-//         columns.style = {},
-      
-//     ]);
-//   };
+  //   let useSelection = (hooks) => {
+  //     hooks.visibleColumns.push((columns) => [
+  //       {
+  //         style: {
+  //           width: "20%",
+  //         },
+  //       },
+  //       ...columns,
+  //     ]);
+  //   };
 
   const {
     getTableProps,
@@ -36,6 +42,7 @@ function Table({ tableData, tableColumns }) {
     page,
     canPreviousPage,
     canNextPage,
+    // visibleColumns,
     pageCount,
     gotoPage,
     nextPage,
@@ -43,11 +50,17 @@ function Table({ tableData, tableColumns }) {
     setPageSize,
     state: { pageIndex, pageSize },
   } = useTable(
-    { columns, data, initialState: { pageIndex: 0, pageSize: 1 } },
+    { columns, data, initialState: { pageIndex: 0, pageSize: pageLength } },
     useSortBy,
-    usePagination,
+    usePagination
     // useSelection
   );
+
+  //   visibleColumns.forEach((column) => {
+  //     console.log({ column });
+  //     return (column.lastItem = false);
+  //   });
+  //   visibleColumns[visibleColumns?.length - 1].lastItem = true;
 
   return (
     <TableWrapper>
@@ -65,8 +78,13 @@ function Table({ tableData, tableColumns }) {
                     <p>
                       {column.render("Header")}
                       <span>
-                        {column?.isSorted &&
-                          (column?.isSortedDesc ? " ?" : " ?")}
+                        {column?.isSorted && column?.isSortedDesc ? (
+                          <ChevronIcon />
+                        ) : column?.isSorted && !column?.isSortedDesc ? (
+                          <ChevronIcon rotate={180} />
+                        ) : (
+                          <ChevronIcon />
+                        )}
                       </span>
                     </p>
                   </th>
@@ -88,7 +106,13 @@ function Table({ tableData, tableColumns }) {
               </tr>
             );
           })}
-          {page.length === 0 && <p>No results</p>}
+          {page.length === 0 && (
+            <tr style={{ background: "transparent" }}>
+              <td colSpan='3'>
+                <p className='noData'>No results</p>
+              </td>
+            </tr>
+          )}
         </tbody>
       </TableContainer>
       <div className='pagination'>
@@ -116,7 +140,7 @@ function Table({ tableData, tableColumns }) {
             setPageSize(Number(e.target.value));
           }}
         >
-          {[2, 4, 5, 40, 50].map((pageSize) => (
+          {[5, 10, 15, 20, 25, 30].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               Show {pageSize}
             </option>
