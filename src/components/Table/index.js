@@ -69,7 +69,7 @@ function Table({ tableData, tableColumns, pageLength }) {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => {
-                console.log({ column });
+                // console.log({ column });
                 return (
                   <th
                     style={{ ...column.style }}
@@ -83,7 +83,7 @@ function Table({ tableData, tableColumns, pageLength }) {
                         ) : column?.isSorted && !column?.isSortedDesc ? (
                           <ChevronIcon rotate={180} />
                         ) : (
-                          <ChevronIcon />
+                          ''
                         )}
                       </span>
                     </p>

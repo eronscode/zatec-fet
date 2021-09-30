@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import {
   MainPanelWrapper,
@@ -12,25 +12,57 @@ import Table from "components/Table";
 import { columns } from "config/tableConfig";
 import { useFetchOrgRepos } from "hooks/useFetchOrgRepos";
 import loader from "assets/images/loader.gif";
+import useSearch from "hooks/useSearch";
+import { filterOrgRepos } from "hooks/useFilterOrgRepos";
+import { handleFilterOptions } from "utils/methods";
 
 function MainPanel() {
+  const [value, setValue] = useState({
+    name: "",
+    min: "",
+    max: "",
+  });
+  const { name, min, max } = value;
   const { organization } = useAppContext();
   const { data, isLoading } = useFetchOrgRepos(organization?.login);
+  // const {
+  //   setValue: setSearchValue,
+  //   data: FilterRepoData,
+  //   setData,
+  //   isLoading: isLoadingFilter,
+  //   handleSearch,
+  // } = useSearch(filterOrgRepos);
 
-  const transformTableData = data?.map((item) => {
+  // const searchPayload = {
+  //   query: name,
+  //   org: organization?.login,
+  // };
+
+  const tableData = data?.map((item) => {
     return {
       repo_name: item.name,
       repo_issue: item.open_issues,
       repo_stars: item.stargazers_count,
     };
   });
+  // const filterTableData = FilterRepoData?.items?.map((item) => {
+  //   return {
+  //     repo_name: item.name,
+  //     repo_issue: item.open_issues,
+  //     repo_stars: item.stargazers_count,
+  //   };
+  // });
+
+  const filteredData = handleFilterOptions(tableData, name, max, min);
+
+  console.log({ filteredData });
 
   return !isEmpty(organization) ? (
     <MainPanelWrapper>
       <h1>{organization?.login}</h1>
       <MainPanelContainer>
         <MainPanelRow>
-          <Filter />
+          <Filter value={value} setValue={setValue} />
         </MainPanelRow>
         <MainPanelRow>
           <div className='plot-section'>select</div>
@@ -45,7 +77,7 @@ function MainPanel() {
           <>
             <MainPanelRow>
               <div className='table-wrapper'>
-                <Table tableColumns={columns} tableData={transformTableData} />
+                <Table tableColumns={columns} tableData={filteredData} />
               </div>
             </MainPanelRow>
             <MainPanelRow>

@@ -1,19 +1,25 @@
-import Input from "components/Input";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
+import Input from "components/Input";
 import { useState } from "react";
 import { FilterWrapper } from "./styles";
 
-function Filter() {
-  const [value, setValue] = useState({
-    name: "",
-    min: "",
-    max: "",
-  });
+const propTypes = {
+  value: PropTypes.object,
+  setValue: PropTypes.func,
+};
+
+const defaultProps = {
+  value: {},
+  setValue: () => {},
+};
+
+function Filter({ value, setValue }) {
   const [isError, setIsError] = useState("");
   const { name, min, max } = value;
 
   function handleChange(e) {
-    let value = "";
+    let value = e.target.value;
     if (["max", "min"].includes(e.target.name)) {
       value = parseInt(e.target.value);
     }
@@ -73,5 +79,8 @@ function Filter() {
     </FilterWrapper>
   );
 }
+
+Filter.defaultProps = defaultProps;
+Filter.propTypes = propTypes;
 
 export default Filter;
