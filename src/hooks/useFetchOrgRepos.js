@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import api from "utils/api";
 import { ApiEndpoints } from "utils/endpoints";
 
@@ -12,7 +12,6 @@ export function useFetchOrgRepos(org = "") {
       setData(null);
       try {
         const response = await api.get(ApiEndpoints.GET_ORG_REPOS(org));
-        console.log({ response });
         setData(response);
       } catch (error) {
         console.log(error);

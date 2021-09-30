@@ -24,6 +24,7 @@ export const MainPanelWrapper = styled.div`
     line-height: 21px;
     color: ${color.black};
     margin-bottom: 40px;
+    text-transform: capitalize;
   }
 `;
 export const MainPanelContainer = styled.div`
