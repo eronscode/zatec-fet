@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import {
   MainPanelWrapper,
@@ -12,8 +12,6 @@ import Table from "components/Table";
 import { columns } from "config/tableConfig";
 import { useFetchOrgRepos } from "hooks/useFetchOrgRepos";
 import loader from "assets/images/loader.gif";
-import useSearch from "hooks/useSearch";
-import { filterOrgRepos } from "hooks/useFilterOrgRepos";
 import { handleFilterOptions } from "utils/methods";
 
 function MainPanel() {

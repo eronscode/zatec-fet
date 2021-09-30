@@ -23,16 +23,6 @@ const defaultProps = {
 function Table({ tableData, tableColumns, pageLength }) {
   const data = useMemo(() => tableData, [tableData]);
   const columns = useMemo(() => tableColumns, []);
-  //   let useSelection = (hooks) => {
-  //     hooks.visibleColumns.push((columns) => [
-  //       {
-  //         style: {
-  //           width: "20%",
-  //         },
-  //       },
-  //       ...columns,
-  //     ]);
-  //   };
 
   const {
     getTableProps,
@@ -53,14 +43,9 @@ function Table({ tableData, tableColumns, pageLength }) {
     { columns, data, initialState: { pageIndex: 0, pageSize: pageLength } },
     useSortBy,
     usePagination
-    // useSelection
   );
 
-  //   visibleColumns.forEach((column) => {
-  //     console.log({ column });
-  //     return (column.lastItem = false);
-  //   });
-  //   visibleColumns[visibleColumns?.length - 1].lastItem = true;
+ 
 
   return (
     <TableWrapper>
@@ -69,7 +54,6 @@ function Table({ tableData, tableColumns, pageLength }) {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => {
-                // console.log({ column });
                 return (
                   <th
                     style={{ ...column.style }}
