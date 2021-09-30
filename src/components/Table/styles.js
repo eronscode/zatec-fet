@@ -7,13 +7,17 @@ export const TableWrapper = styled.div`
     button {
       ${mixins.clickable}
     }
+    span {
+      ${font.size(12)}
+      line-height: 14px;
+    }
   }
 
   .noData {
     ${font.size(12)}
     line-height: 14px;
     color: ${color.lightGrey};
-    text-align:center;
+    text-align: center;
   }
 `;
 

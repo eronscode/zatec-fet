@@ -24,7 +24,8 @@ const InputElement = styled.input`
   color: ${color.black};
   background: ${color.white};
   transition: background 0.1s;
-  ${font.size(15)}
+  ${font.size(12)};
+  line-height: 14px;
 
   &:hover {
     /* background: ${color.backgroundLight}; */

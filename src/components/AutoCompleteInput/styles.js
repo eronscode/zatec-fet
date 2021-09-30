@@ -31,7 +31,7 @@ export const SuggestionsList = styled.div`
     color: ${color.black};
     padding: 13px 10px;
     cursor: pointer;
-    font-size: ${font.size(12)};
+    ${font.size(12)};
     line-height: 14px;
     ${mixins.clickable};
     &:hover {
