@@ -22,7 +22,7 @@ const defaultProps = {
 
 function Table({ tableData, tableColumns, pageLength }) {
   const data = useMemo(() => tableData, [tableData]);
-  const columns = useMemo(() => tableColumns, []);
+  const columns = useMemo(() => tableColumns, [tableColumns]);
 
   const {
     getTableProps,
@@ -45,8 +45,6 @@ function Table({ tableData, tableColumns, pageLength }) {
     usePagination
   );
 
- 
-
   return (
     <TableWrapper>
       <TableContainer {...getTableProps()}>
@@ -67,7 +65,7 @@ function Table({ tableData, tableColumns, pageLength }) {
                         ) : column?.isSorted && !column?.isSortedDesc ? (
                           <ChevronIcon rotate={180} />
                         ) : (
-                          ''
+                          ""
                         )}
                       </span>
                     </p>
