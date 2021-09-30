@@ -36,7 +36,7 @@ const api = (method, url, variables) =>
 
 const handleApiError = (errorCode = null) => {
   const error = handleApiErrorCodes(errorCode);
-  toast.error(error.message, {
+  toast.error(error?.message, {
     toastId: errorCode,
   });
 };
