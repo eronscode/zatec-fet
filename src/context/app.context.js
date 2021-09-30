@@ -10,9 +10,14 @@ function useAppActions() {
     dispatch({ type: "SET_ORGANIZATION", data });
   }
 
+  function setOrganizationFilter(data) {
+    dispatch({ type: "SET_ORGANIZATION_FILTER", data });
+  }
+
   return {
     state,
     setOrganization,
+    setOrganizationFilter,
   };
 }
 
@@ -21,6 +26,7 @@ function AppProvider(params) {
 
   const value = {
     organization: state.organization,
+    organizationFilter: state.organizationFilter,
     ...restProps,
   };
   return <AppContext.Provider value={value} {...params} />;

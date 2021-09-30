@@ -16,8 +16,7 @@ export const handleFilterOptions = (
     newArray = newArray.filter((item) => item.repo_name.includes(name));
   }
 
-  if (max !== null && min !== null && (min < max)) {
-    console.log({ min, max });
+  if (max !== null && min !== null && min < max) {
     newArray = newArray.filter(function (o) {
       return o.repo_issue <= max && o.repo_issue >= min;
     });
@@ -25,3 +24,46 @@ export const handleFilterOptions = (
 
   return newArray;
 };
+
+
+export const handleFilterStorage = (params) => {
+  const {name, min, max, organization, organizationFilter,  setOrganizationFilter} = params
+  if (name !== "" || min !== "" || max !== "") {
+    //check if organization is in filter state
+    const id = organizationFilter.find(
+      (item) => item.organization === organization?.login
+    );
+
+    //if filters for organization doesn't already exists...
+    if (!id) {
+      const payload = {
+        organization: organization?.login,
+        filters: {
+          name,
+          min,
+          max,
+        },
+      };
+      const copyOrg = [...organizationFilter];
+      copyOrg.push(payload);
+      setOrganizationFilter(copyOrg);
+    }
+
+    //if filters for organization already exists...
+    if (id) {
+      const copyOrg = organizationFilter.map((item) =>
+        item.organization === organization?.login
+          ? {
+              ...item,
+              filters: {
+                name,
+                min,
+                max,
+              },
+            }
+          : item
+      );
+      setOrganizationFilter(copyOrg);
+    }
+  }
+}

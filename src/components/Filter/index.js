@@ -20,7 +20,7 @@ function Filter({ value, setValue }) {
 
   function handleChange(e) {
     let value = e.target.value;
-    if (["max", "min"].includes(e.target.name)) {
+    if (["max", "min"].includes(e.target.name) && value !== "") {
       value = parseInt(e.target.value);
     }
     setValue((prev) => ({

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
 import {
   MainPanelWrapper,
@@ -12,30 +12,31 @@ import Table from "components/Table";
 import { columns } from "config/tableConfig";
 import { useFetchOrgRepos } from "hooks/useFetchOrgRepos";
 import loader from "assets/images/loader.gif";
-import { handleFilterOptions } from "utils/methods";
+import { handleFilterOptions, handleFilterStorage } from "utils/methods";
+
+const INITIAL_STATE = {
+  name: "",
+  min: "",
+  max: "",
+};
 
 function MainPanel() {
-  const [value, setValue] = useState({
-    name: "",
-    min: "",
-    max: "",
-  });
+  /*
+    # ------------------------------------------------------------ #
+    # State Declarations   #
+    # ------------------------------------------------------------ #
+  */
+  const [value, setValue] = useState(INITIAL_STATE);
   const { name, min, max } = value;
-  const { organization } = useAppContext();
+  const { organization, organizationFilter, setOrganizationFilter } =
+    useAppContext();
   const { data, isLoading } = useFetchOrgRepos(organization?.login);
-  // const {
-  //   setValue: setSearchValue,
-  //   data: FilterRepoData,
-  //   setData,
-  //   isLoading: isLoadingFilter,
-  //   handleSearch,
-  // } = useSearch(filterOrgRepos);
 
-  // const searchPayload = {
-  //   query: name,
-  //   org: organization?.login,
-  // };
-
+  /*
+    # ------------------------------------------------------------ #
+    # Tansform and Extract specific data from API                  #
+    # ------------------------------------------------------------ #
+  */
   const tableData = data?.map((item) => {
     return {
       repo_name: item.name,
@@ -43,17 +44,55 @@ function MainPanel() {
       repo_stars: item.stargazers_count,
     };
   });
-  // const filterTableData = FilterRepoData?.items?.map((item) => {
-  //   return {
-  //     repo_name: item.name,
-  //     repo_issue: item.open_issues,
-  //     repo_stars: item.stargazers_count,
-  //   };
-  // });
+
+
+  /*
+    # ------------------------------------------------------------ #
+    # Handles repository input filters                                        #
+    # ------------------------------------------------------------ #
+  */
 
   const filteredData = handleFilterOptions(tableData, name, max, min);
 
-  console.log({ filteredData });
+  /*
+    # ------------------------------------------------------------ #
+    # Store filter option for each repository selected            #
+    # ------------------------------------------------------------ #
+  */
+  useEffect(() => {
+    const data = {
+      name,
+      min,
+      max,
+      organization,
+      organizationFilter,
+      setOrganizationFilter,
+    };
+    handleFilterStorage(data);
+  }, [name, min, max]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /*
+    # ----------------------------------------------------------------- #
+    # set initial filter state if filter for selected orgaization exist  #
+    # ----------------------------------------------------------------- #
+  */
+  useEffect(() => {
+    const org = organizationFilter.filter(
+      (item) => item.organization === organization?.login
+    );
+    if (!isEmpty(org)) {
+      const newState = {
+        name: org[0]?.filters.name,
+        max: org[0]?.filters.max,
+        min: org[0]?.filters.min,
+      };
+      setValue(newState);
+    } else {
+      setValue(INITIAL_STATE);
+    }
+  }, [organization?.login]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
 
   return !isEmpty(organization) ? (
     <MainPanelWrapper>

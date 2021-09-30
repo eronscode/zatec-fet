@@ -13,6 +13,7 @@ export const TableWrapper = styled.div`
     ${font.size(12)}
     line-height: 14px;
     color: ${color.lightGrey};
+    text-align:center;
   }
 `;
 
