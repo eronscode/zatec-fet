@@ -36,8 +36,11 @@ function Filter({ value, setValue }) {
       } else {
         setIsError("");
       }
+    } else {
+      setIsError("");
     }
   }, [min, max]);
+  console.log({ min, max });
 
   return (
     <FilterWrapper>
