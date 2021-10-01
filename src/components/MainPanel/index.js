@@ -13,6 +13,7 @@ import { columns } from "config/tableConfig";
 import { useFetchOrgRepos } from "hooks/useFetchOrgRepos";
 import loader from "assets/images/loader.gif";
 import { handleFilterOptions, handleFilterStorage } from "utils/methods";
+import Chart from "react-google-charts";
 
 const INITIAL_STATE = {
   name: "",
@@ -44,7 +45,6 @@ function MainPanel() {
       repo_stars: item.stargazers_count,
     };
   });
-
 
   /*
     # ------------------------------------------------------------ #
@@ -92,7 +92,45 @@ function MainPanel() {
     }
   }, [organization?.login]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const chartData = [
+    ["X", "Y"],
+    [0.785882, 0.355928],
+    [0.785882, 0.346507],
+    [0.785882, 0.355928],
+    [0.785882, 0.703251],
+    [0.785028, 0.599739],
+    [0.785028, 0.512527],
+    [0.785882, 0.346507],
+    [0.785882, 0.346507],
+    [0.785882, 0.355928],
+    [0.785882, 0.355928],
+    [0.785882, 0.355928],
+    [0.785882, 0.355928],
+    [0.8905, 0.556761],
+    [0.785882, 0.613288],
+    [0.785028, 0.599739],
+    [0.8905, 0.598812],
+    [0.785028, 0.643674],
+  ];
 
+  chartData.forEach(function (row, index) {
+    if (index === 0) {
+      // add column heading
+      row.push({
+        role: "style",
+        type: "string",
+      });
+    } else {
+      // add color for row
+      if (row[1] >= 0.1 && row[1] <= 2.5) {
+        row.push("blue");
+      } else if (row[1] > 2.5 && row[1] <= 3.5) {
+        row.push("red");
+      } else {
+        row.push("black");
+      }
+    }
+  });
 
   return !isEmpty(organization) ? (
     <MainPanelWrapper>
@@ -118,7 +156,22 @@ function MainPanel() {
               </div>
             </MainPanelRow>
             <MainPanelRow>
-              <p>pot</p>
+              <Chart
+                width={"600px"}
+                height={"400px"}
+                chartType='ScatterChart'
+                loader={<div>Loading Chart</div>}
+                data={chartData}
+                options={{
+                  title: "Age vs. Weight comparison",
+                  hAxis: { title: "Age", scaleType: "log" },
+                  vAxis: {
+                    scaleType: "log",
+                  },
+                  legend: "none",
+                }}
+                rootProps={{ "data-testid": "1" }}
+              />
             </MainPanelRow>
           </>
         )}
