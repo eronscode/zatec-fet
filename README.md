@@ -17,34 +17,31 @@ An assignment to build a client-only UI that lets the user browse repositories o
 2. In the root project directory, type `npm install` to install the project's dependencies.
 3. Once installation is complete, type `npm start` to start the project in your local browser. This will start up the full react application.
 
-NOTE: Ensure you're connected to the internet so repos can load up.
+NOTE: Ensure you're connected to the internet so api's can load up data.
 
 
 ### TASK FEATURES EXPLANATION
 
-1. API Implementation: I used firebase firestore for this project and created endpoints in `pages/api/products/index.js` to create products and fetch products.
+1. Design System - colors and stylings were used as specified in the design prototype. 
 
-2. Featured Products: The products list being fetched from the backend had one product with a flag of featured=true. This product was filtered from the array and displayed at the top of the page. Code implementation can be found here: `components/Product/FeaturedProduct/index.js`
+2. Autocomplete Search - A re-usable custom input component and re-usable hook was used to implement the live search. Also debounce function was used from lodash to prevent api calls on every key stroke.
 
-3. Product List: The products fetched from the api displays 6 items at first and hovering over the image displays the "add to cart" button. Some products also have the best seller flag.
+3. Repository filter - Filters work as expected. Name filter filters repository by name. Min and max filters works together.  Error occurs when min greater than max filter and hence data is not refetched. 
 
-4. Add to cart: The add to cart button add elements to the cart and make the cart dropdown visible. A context state was created for the cart items and cart open state. This made cart items avaialble to comsumers of any components, giving components the flexibility to add and remove items from cart or even close the dropdown toggle of the cart.
+4. Table Pagination & Sorting: React-table was used for the implementation of table. It comes with hooks by default for sorting & pagination.
 
-5. Pagination: I created a resuable pagination component and also created functions to change pagination display content.
+5. Preserve Filter State Data: React context was used to preserve filter data. Filter data is stored for each organization only if the filter input was touched.
 
-6. Sorting: i implemted dynamic category filter. Categories were dynamically filtered from the list of API data. Also price ranges were also dynamically filtered based the mininum and maximum prices from the API data.
+6. Charts: React google chart was used for the implementation of Timeline chart and scatter charts
 
-7. Filtering: I implemented filtering of products based on price and name in ascending and descending order. This was achieved with javascript filter functions. The modal for filtering also works on mobile.
-
-8. Web performance: In order to achieve great web performance, i utitlized the next js image component to render images specified for every screen thereby reducing Largest Contentful Paint(LCP) core web vital.
 
 ## Deployment Link
 
-This project was deployed to heroku : https://poc-ecommerce-test.herokuapp.com/
+This project was deployed to heroku : https://zatec-fet.herokuapp.com/
 
 ## Tips and Additions
 
-Althought this is a POC, it would have been nice to display a flash message when an item is added to cart. That way a user knows items are added to cart.
+Some features were not implemented due to lack of time and busy schedule. They include the Scatter chart and Data visualization. I also looked for an enpoint to fetch repositories in an organization with open and closed issues in the payload but unfortunately, the api provided by github only has open issues count in its payload for listed repositories in an organization. The only way to fetch the closed issues was to fetch by each repository. So that means for every 100 repositories, I'll hit an endpoint to fetch the closed issues. This implementation will be very poor. But using a library like react-query for data fetching might for very helpful in such cases.
 
 ## Contact Info
 
@@ -54,4 +51,4 @@ LinkedIn: https://www.linkedin.com/in/ose-matthew/
 
 Email: osemu.matthew@gmail.com
 
-Gracias
+Gracias 
