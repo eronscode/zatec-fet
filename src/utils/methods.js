@@ -7,26 +7,28 @@ export const handleFilterOptions = (
   min = null
 ) => {
   let newArray = [...array];
-  let isMinLessMax = true;
-  
+  let isMinLessThanMax = true;
+
   if (isEmpty(name) && max === "" && min === "") {
     return newArray;
   }
+
   
-  
-  if (max !== null && min !== null && min < max) {
-    isMinLessMax = true;
+  if (max !== "" && min !== "" && min < max) {
     newArray = newArray.filter(function (o) {
       return o.repo_issue <= max && o.repo_issue >= min;
     });
-  } else {
-    isMinLessMax = false;
   }
   
-  if (!isEmpty(name) && isMinLessMax) {
+  if (max !== "" && min !== "" && min > max) {
+    isMinLessThanMax = false;
+  }
+  
+  if (!isEmpty(name) && isMinLessThanMax) {
     newArray = newArray.filter((item) => item.repo_name.includes(name));
   }
 
+  
   return newArray;
 };
 

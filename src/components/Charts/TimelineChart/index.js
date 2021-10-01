@@ -7,13 +7,14 @@ function TImeLineChart({
   width,
   height,
 }) {
+  const data = chartData || [['','','']]
   return (
     <Chart
       width={width}
       height={height}
       chartType='Timeline'
       loader={<div>Loading Chart</div>}
-      data={[chartLabel, ...chartData]}
+      data={[chartLabel, ...data]}
       options={{
         timeline: {
           singleColor: "#0085FF",

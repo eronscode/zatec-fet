@@ -75,6 +75,7 @@ function MainPanel() {
       new Date(item.updated_at),
     ];
   });
+  console.log({ timeLineChartData });
 
   /*
     # ------------------------------------------------------------ #
