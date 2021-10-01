@@ -2,8 +2,6 @@ import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
 import { StyledSelect, SelectElement, SelectWrapper } from "./styles";
-import { ErrorIcon } from "utils/icons";
-import Tooltip from "components/Tooltip";
 
 const propTypes = {
   className: PropTypes.string,

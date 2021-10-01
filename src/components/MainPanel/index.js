@@ -5,7 +5,6 @@ import {
   MainPanelContainer,
   MainPanelRow,
   Loader,
-  ChartSectionContainer,
 } from "./styles";
 import { useAppContext } from "context/app.context";
 import Filter from "components/Filter";
@@ -32,7 +31,7 @@ const CHART_OPTIONS = [
 function MainPanel() {
   /*
     # ------------------------------------------------------------ #
-    # State Declarations   #
+    # State Declarations                                           #
     # ------------------------------------------------------------ #
   */
   const [value, setValue] = useState(INITIAL_STATE);
@@ -52,6 +51,8 @@ function MainPanel() {
       repo_name: item.name,
       repo_issue: item.open_issues,
       repo_stars: item.stargazers_count,
+      created_at: item.created_at,
+      updated_at: item.updated_at,
     };
   });
 
@@ -62,6 +63,15 @@ function MainPanel() {
   */
 
   const filteredData = handleFilterOptions(tableData, name, max, min);
+
+  const timeLineChartData = filteredData?.map((item) => {
+    return [
+      item.repo_name,
+      new Date(item.created_at),
+      new Date(item.updated_at),
+    ];
+  });
+  console.log({ timeLineChartData });
 
   /*
     # ------------------------------------------------------------ #
@@ -136,7 +146,9 @@ function MainPanel() {
               </div>
             </MainPanelRow>
             <MainPanelRow>
-              <div className='row-padding chart-wrapper'>{renderChart(chartType)}</div>
+              <div className='row-padding chart-wrapper'>
+                {renderChart(chartType, timeLineChartData)}
+              </div>
             </MainPanelRow>
           </>
         )}
@@ -151,10 +163,20 @@ function MainPanel() {
   );
 }
 
-function renderChart(chart) {
+function renderChart(chart, timeLineChartData) {
   switch (chart) {
     case "timeline-chart":
-      return <TImeLineChart />;
+      return (
+        <TImeLineChart
+          height={500}
+          chartLabel={[
+            { type: "string", id: "Repository" },
+            { type: "date", id: "Start" },
+            { type: "date", id: "End" },
+          ]}
+          chartData={timeLineChartData}
+        />
+      );
     case "scatter-chart":
       return <ScatterChart />;
 

@@ -1,31 +1,25 @@
 import Chart from "react-google-charts";
 
 function TImeLineChart({
-    chartData,
-    chartOptions,
-    width,
-    height
+  chartLabel = [],
+  chartData = [],
+  chartOptions,
+  width,
+  height,
 }) {
+  console.log({ chartData });
   return (
     <Chart
       width={width}
       height={height}
       chartType='Timeline'
       loader={<div>Loading Chart</div>}
-      data={[
-        [
-          { type: "string", id: "President" },
-          { type: "date", id: "Start" },
-          { type: "date", id: "End" },
-        ],
-        ["Washington", new Date(1789, 3, 30), new Date(1797, 2, 4)],
-        ["Adams", new Date(1797, 2, 4), new Date(1801, 2, 4)],
-        ["Jefferson", new Date(1801, 2, 4), new Date(1809, 2, 4)],
-      ]}
+      data={[chartLabel, ...chartData]}
       options={{
-        showRowNumber: true,
+        timeline: {
+          singleColor: "#0085FF",
+        },
       }}
-      rootProps={{ "data-testid": "1" }}
     />
   );
 }
