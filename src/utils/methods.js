@@ -7,19 +7,24 @@ export const handleFilterOptions = (
   min = null
 ) => {
   let newArray = [...array];
-
+  let isMinLessMax = true;
+  
   if (isEmpty(name) && max === "" && min === "") {
     return newArray;
   }
-
-  if (!isEmpty(name)) {
-    newArray = newArray.filter((item) => item.repo_name.includes(name));
-  }
-
+  
+  
   if (max !== null && min !== null && min < max) {
+    isMinLessMax = true;
     newArray = newArray.filter(function (o) {
       return o.repo_issue <= max && o.repo_issue >= min;
     });
+  } else {
+    isMinLessMax = false;
+  }
+  
+  if (!isEmpty(name) && isMinLessMax) {
+    newArray = newArray.filter((item) => item.repo_name.includes(name));
   }
 
   return newArray;
@@ -87,12 +92,11 @@ export const handleApiErrorCodes = (errorCode) => {
     case 403:
       return {
         message:
-          "API rate limit exceeded. Try waiting for sometime and Refreshing page",
+          "API rate limit exceeded. Try waiting for sometime and refresh page",
       };
     case 422:
       return {
-        message:
-          "Something went wrong. Unable to process request",
+        message: "Something went wrong. Unable to process request",
       };
     case 503:
       return {

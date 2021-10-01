@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { usePagination, useSortBy, useTable } from "react-table";
 import PropTypes from "prop-types";
+import { usePagination, useSortBy, useTable } from "react-table";
 import { TableContainer, TableWrapper } from "./styles";
 import { ChevronIcon } from "utils/icons";
 
