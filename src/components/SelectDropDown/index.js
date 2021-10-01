@@ -1,7 +1,7 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
-import { StyledInput, InputElement, ErrorContainer, InputWrapper } from "./styles";
+import { StyledSelect, SelectElement, SelectWrapper } from "./styles";
 import { ErrorIcon } from "utils/icons";
 import Tooltip from "components/Tooltip";
 
@@ -9,6 +9,7 @@ const propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  options: PropTypes.arrayOf(PropTypes.object),
   label: PropTypes.string,
   isError: PropTypes.string,
   errorMsg: PropTypes.string,
@@ -19,42 +20,51 @@ const defaultProps = {
   className: undefined,
   name: undefined,
   value: undefined,
+  options: [],
   label: undefined,
   isError: undefined,
   errorMsg: undefined,
   onChange: () => {},
 };
 
-const Input = forwardRef(
+const Select = forwardRef(
   (
-    { className, label, name, isError, errorMsg, onChange, value, ...inputProps },
+    {
+      className,
+      label,
+      name,
+      isError,
+      errorMsg,
+      onChange,
+      value,
+      options,
+      ...inputProps
+    },
     ref
   ) => {
     return (
-      <InputWrapper>
+      <SelectWrapper>
         {label && <label htmlFor={name}>{label} </label>}
-        <StyledInput className={className}>
-          {errorMsg && (
-            <ErrorContainer>
-              <Tooltip value={errorMsg} />
-              <ErrorIcon />
-            </ErrorContainer>
-          )}
-          <InputElement
+        <StyledSelect className={className}>
+          <SelectElement
             value={value}
-            invalid={isError}
-            name={name}
             ref={ref}
             onChange={onChange}
             {...inputProps}
-          />
-        </StyledInput>
-      </InputWrapper>
+          >
+            {options?.map((item) => (
+              <option key={item.value} value={item.value}>
+                {item.label}
+              </option>
+            ))}
+          </SelectElement>
+        </StyledSelect>
+      </SelectWrapper>
     );
   }
 );
 
-Input.propTypes = propTypes;
-Input.defaultProps = defaultProps;
+Select.propTypes = propTypes;
+Select.defaultProps = defaultProps;
 
-export default Input;
+export default Select;

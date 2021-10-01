@@ -26,6 +26,14 @@ export const MainPanelWrapper = styled.div`
     margin-bottom: 40px;
     text-transform: capitalize;
   }
+
+  .select-dropdown {
+    width: 320px;
+    margin: 26px 0 0 0;
+  }
+  .chart-wrapper{
+    margin-top: 17px;
+  }
 `;
 export const MainPanelContainer = styled.div`
   display: flex;
@@ -38,8 +46,22 @@ export const MainPanelRow = styled.div`
   .table-wrapper {
     margin-top: 25px;
   }
+  .row-padding {
+    padding: 0 30px;
+    @media screen and (max-width: 768px) {
+      padding: 0;
+    }
+  }
   @media screen and (max-width: 768px) {
     width: 100%;
+    padding: 0;
+  }
+`;
+
+export const ChartSectionContainer = styled.div`
+  padding: 0 30px;
+  @media screen and (max-width: 768px) {
+    padding: 0;
   }
 `;
 

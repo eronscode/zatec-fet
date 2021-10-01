@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { color, font } from "styles/styleUtils";
 
-const InputWrapper = styled.div`
+const SelectWrapper = styled.div`
   label {
     ${font.bold};
     ${font.size(12)};
@@ -11,7 +11,8 @@ const InputWrapper = styled.div`
     display: block;
   }
 `;
-const StyledInput = styled.div`
+
+const StyledSelect = styled.div`
   position: relative;
   display: inline-block;
   width: 100%;
@@ -24,7 +25,7 @@ const StyledInput = styled.div`
   }
 `;
 
-const InputElement = styled.input`
+const SelectElement = styled.select`
   height: 100%;
   width: 100%;
   padding: 13px 10px;
@@ -56,12 +57,4 @@ const InputElement = styled.input`
     `}
 `;
 
-const ErrorContainer = styled.div`
-  position: absolute;
-  right: -106px;
-  top: -60px;
-  width: 200px;
-  text-align: center;
-`;
-
-export { InputElement, StyledInput, ErrorContainer , InputWrapper};
+export { SelectElement, StyledSelect, SelectWrapper };

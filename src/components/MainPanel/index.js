@@ -5,6 +5,7 @@ import {
   MainPanelContainer,
   MainPanelRow,
   Loader,
+  ChartSectionContainer,
 } from "./styles";
 import { useAppContext } from "context/app.context";
 import Filter from "components/Filter";
@@ -13,13 +14,20 @@ import { columns } from "config/tableConfig";
 import { useFetchOrgRepos } from "hooks/useFetchOrgRepos";
 import loader from "assets/images/loader.gif";
 import { handleFilterOptions, handleFilterStorage } from "utils/methods";
-import Chart from "react-google-charts";
+import Select from "components/SelectDropDown";
+import TImeLineChart from "components/Charts/TimelineChart";
+import ScatterChart from "components/Charts/ScatterChart";
 
 const INITIAL_STATE = {
   name: "",
   min: "",
   max: "",
 };
+
+const CHART_OPTIONS = [
+  { value: "timeline-chart", label: "TImeline Chart" },
+  { value: "scatter-chart", label: "Scatter Chart" },
+];
 
 function MainPanel() {
   /*
@@ -28,6 +36,7 @@ function MainPanel() {
     # ------------------------------------------------------------ #
   */
   const [value, setValue] = useState(INITIAL_STATE);
+  const [chartType, setChartType] = useState("timeline-chart");
   const { name, min, max } = value;
   const { organization, organizationFilter, setOrganizationFilter } =
     useAppContext();
@@ -92,45 +101,9 @@ function MainPanel() {
     }
   }, [organization?.login]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const chartData = [
-    ["X", "Y"],
-    [0.785882, 0.355928],
-    [0.785882, 0.346507],
-    [0.785882, 0.355928],
-    [0.785882, 0.703251],
-    [0.785028, 0.599739],
-    [0.785028, 0.512527],
-    [0.785882, 0.346507],
-    [0.785882, 0.346507],
-    [0.785882, 0.355928],
-    [0.785882, 0.355928],
-    [0.785882, 0.355928],
-    [0.785882, 0.355928],
-    [0.8905, 0.556761],
-    [0.785882, 0.613288],
-    [0.785028, 0.599739],
-    [0.8905, 0.598812],
-    [0.785028, 0.643674],
-  ];
-
-  chartData.forEach(function (row, index) {
-    if (index === 0) {
-      // add column heading
-      row.push({
-        role: "style",
-        type: "string",
-      });
-    } else {
-      // add color for row
-      if (row[1] >= 0.1 && row[1] <= 2.5) {
-        row.push("blue");
-      } else if (row[1] > 2.5 && row[1] <= 3.5) {
-        row.push("red");
-      } else {
-        row.push("black");
-      }
-    }
-  });
+  function toggleChart(e) {
+    setChartType(e.target.value);
+  }
 
   return !isEmpty(organization) ? (
     <MainPanelWrapper>
@@ -140,7 +113,14 @@ function MainPanel() {
           <Filter value={value} setValue={setValue} />
         </MainPanelRow>
         <MainPanelRow>
-          <div className='plot-section'>select</div>
+          <div className='row-padding'>
+            <Select
+              className='select-dropdown'
+              value={chartType}
+              options={CHART_OPTIONS}
+              onChange={toggleChart}
+            />
+          </div>
         </MainPanelRow>
       </MainPanelContainer>
       <MainPanelContainer>
@@ -156,22 +136,7 @@ function MainPanel() {
               </div>
             </MainPanelRow>
             <MainPanelRow>
-              <Chart
-                width={"600px"}
-                height={"400px"}
-                chartType='ScatterChart'
-                loader={<div>Loading Chart</div>}
-                data={chartData}
-                options={{
-                  title: "Age vs. Weight comparison",
-                  hAxis: { title: "Age", scaleType: "log" },
-                  vAxis: {
-                    scaleType: "log",
-                  },
-                  legend: "none",
-                }}
-                rootProps={{ "data-testid": "1" }}
-              />
+              <div className='row-padding chart-wrapper'>{renderChart(chartType)}</div>
             </MainPanelRow>
           </>
         )}
@@ -184,6 +149,18 @@ function MainPanel() {
       </div>
     </MainPanelWrapper>
   );
+}
+
+function renderChart(chart) {
+  switch (chart) {
+    case "timeline-chart":
+      return <TImeLineChart />;
+    case "scatter-chart":
+      return <ScatterChart />;
+
+    default:
+      return <p>Invalid Chart</p>;
+  }
 }
 
 export default MainPanel;
