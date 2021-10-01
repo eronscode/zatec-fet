@@ -35,9 +35,6 @@ NOTE: Ensure you're connected to the internet so api's can load up data.
 6. Charts: React google chart was used for the implementation of Timeline chart and scatter charts
 
 
-## Deployment Link
-
-This project was deployed to heroku : https://zatec-fet.herokuapp.com/
 
 ## Tips and Additions
 
