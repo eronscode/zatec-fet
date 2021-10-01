@@ -7,7 +7,6 @@ function TImeLineChart({
   width,
   height,
 }) {
-  console.log({ chartData });
   return (
     <Chart
       width={width}

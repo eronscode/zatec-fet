@@ -1,70 +1,57 @@
-# Getting Started with Create React App
+## Zatec Frontend Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An assignment to build a client-only UI that lets the user browse repositories on GitHub and extract some simple statistics as visualization - Task done by Osemudiamen Matthew Elebesunu.
 
-## Available Scripts
+## Libraries/Framework
 
-In the project directory, you can run:
+- React
+- styled-components
+- axios
+- react-table
+- react-toastify
+- react-google-charts
 
-### `yarn start`
+## Run this project locally
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Download and Install Node JS from https://nodejs.org/en/download/
+2. In the root project directory, type `npm install` to install the project's dependencies.
+3. Once installation is complete, type `npm start` to start the project in your local browser. This will start up the full react application.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+NOTE: Ensure you're connected to the internet so repos can load up.
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### TASK FEATURES EXPLANATION
 
-### `yarn build`
+1. API Implementation: I used firebase firestore for this project and created endpoints in `pages/api/products/index.js` to create products and fetch products.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Featured Products: The products list being fetched from the backend had one product with a flag of featured=true. This product was filtered from the array and displayed at the top of the page. Code implementation can be found here: `components/Product/FeaturedProduct/index.js`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Product List: The products fetched from the api displays 6 items at first and hovering over the image displays the "add to cart" button. Some products also have the best seller flag.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Add to cart: The add to cart button add elements to the cart and make the cart dropdown visible. A context state was created for the cart items and cart open state. This made cart items avaialble to comsumers of any components, giving components the flexibility to add and remove items from cart or even close the dropdown toggle of the cart.
 
-### `yarn eject`
+5. Pagination: I created a resuable pagination component and also created functions to change pagination display content.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+6. Sorting: i implemted dynamic category filter. Categories were dynamically filtered from the list of API data. Also price ranges were also dynamically filtered based the mininum and maximum prices from the API data.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+7. Filtering: I implemented filtering of products based on price and name in ascending and descending order. This was achieved with javascript filter functions. The modal for filtering also works on mobile.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+8. Web performance: In order to achieve great web performance, i utitlized the next js image component to render images specified for every screen thereby reducing Largest Contentful Paint(LCP) core web vital.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Deployment Link
 
-## Learn More
+This project was deployed to heroku : https://poc-ecommerce-test.herokuapp.com/
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Tips and Additions
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Althought this is a POC, it would have been nice to display a flash message when an item is added to cart. That way a user knows items are added to cart.
 
-### Code Splitting
+## Contact Info
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Feel free to reach me on:
 
-### Analyzing the Bundle Size
+LinkedIn: https://www.linkedin.com/in/ose-matthew/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Email: osemu.matthew@gmail.com
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Gracias

@@ -9,7 +9,6 @@ export async function fetchOrganizations(
   setLoading(true);
   setData(null);
   try {
-    console.log({ value });
     const response = await api.get(ApiEndpoints.GET_ORG(value));
     setData(response);
   } catch (error) {

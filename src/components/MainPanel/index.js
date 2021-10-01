@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import isEmpty from "lodash/isEmpty";
+
 import {
   MainPanelWrapper,
   MainPanelContainer,
@@ -17,7 +18,7 @@ import Select from "components/SelectDropDown";
 import TImeLineChart from "components/Charts/TimelineChart";
 import ScatterChart from "components/Charts/ScatterChart";
 
-const INITIAL_STATE = {
+const INITIAL_FILTER_STATE = {
   name: "",
   min: "",
   max: "",
@@ -34,12 +35,14 @@ function MainPanel() {
     # State Declarations                                           #
     # ------------------------------------------------------------ #
   */
-  const [value, setValue] = useState(INITIAL_STATE);
+  const [value, setValue] = useState(INITIAL_FILTER_STATE);
   const [chartType, setChartType] = useState("timeline-chart");
   const { name, min, max } = value;
   const { organization, organizationFilter, setOrganizationFilter } =
     useAppContext();
-  const { data, isLoading } = useFetchOrgRepos(organization?.login);
+  const { data, isLoading, isError, handleFetchOrgRepos } = useFetchOrgRepos(
+    organization?.login
+  );
 
   /*
     # ------------------------------------------------------------ #
@@ -71,11 +74,10 @@ function MainPanel() {
       new Date(item.updated_at),
     ];
   });
-  console.log({ timeLineChartData });
 
   /*
     # ------------------------------------------------------------ #
-    # Store filter option for each repository selected            #
+    # Store filter option for each organization selected            #
     # ------------------------------------------------------------ #
   */
   useEffect(() => {
@@ -92,7 +94,8 @@ function MainPanel() {
 
   /*
     # ----------------------------------------------------------------- #
-    # set initial filter state if filter for selected orgaization exist  #
+    # set initial filter state if filter for selected orgaization exist #
+    # or doesn't exist                                                  #
     # ----------------------------------------------------------------- #
   */
   useEffect(() => {
@@ -107,7 +110,7 @@ function MainPanel() {
       };
       setValue(newState);
     } else {
-      setValue(INITIAL_STATE);
+      setValue(INITIAL_FILTER_STATE);
     }
   }, [organization?.login]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -138,6 +141,8 @@ function MainPanel() {
           <Loader>
             <img src={loader} alt='loading...' />
           </Loader>
+        ) : isError ? (
+          <p>Errror</p>
         ) : (
           <>
             <MainPanelRow>

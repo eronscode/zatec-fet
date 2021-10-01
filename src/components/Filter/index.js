@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
 import Input from "components/Input";
-import { useState } from "react";
 import { FilterWrapper } from "./styles";
 
 const propTypes = {
