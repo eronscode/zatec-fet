@@ -41,7 +41,7 @@ This project was deployed to heroku : https://zatec-fet.herokuapp.com/
 
 ## Tips and Additions
 
-Some features were not implemented due to lack of time and busy schedule. They include the Scatter chart and Data visualization. I also looked for an enpoint to fetch repositories in an organization with open and closed issues in the payload but unfortunately, the api provided by github only has open issues count in its payload for listed repositories in an organization. The only way to fetch the closed issues was to fetch by each repository. So that means for every 100 repositories, I'll hit an endpoint to fetch the closed issues. This implementation will be very poor. But using a library like react-query for data fetching might for very helpful in such cases.
+Some features were not implemented due to lack of time and busy schedule. They include the Scatter chart and Data visualization. I also looked for an enpoint to fetch repositories in an organization with open and closed issues in the payload but unfortunately, the api provided by github only has open issues count in its payload for listed repositories in an organization. The only way to fetch the closed issues was to fetch by each repository. So that means for every 100 repositories, I'll hit an endpoint to fetch the closed issues. This implementation will be very poor. But using a library like react-query for data fetching might for very helpful in such cases. With react-query background fetch to those endpoints will be carried out with ease. it also provides caching of data. 
 
 ## Contact Info
 
