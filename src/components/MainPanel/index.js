@@ -154,7 +154,8 @@ function MainPanel() {
             </MainPanelRow>
             <MainPanelRow>
               <div className='row-padding chart-wrapper'>
-                {renderChart(chartType, timeLineChartData)}
+                {timeLineChartData.length !== 0 &&
+                  renderChart(chartType, timeLineChartData)}
               </div>
             </MainPanelRow>
           </>
