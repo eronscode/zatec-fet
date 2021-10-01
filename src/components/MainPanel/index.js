@@ -17,6 +17,7 @@ import { handleFilterOptions, handleFilterStorage } from "utils/methods";
 import Select from "components/SelectDropDown";
 import TImeLineChart from "components/Charts/TimelineChart";
 import ScatterChart from "components/Charts/ScatterChart";
+import { ErrorUI } from "utils/placeholders";
 
 const INITIAL_FILTER_STATE = {
   name: "",
@@ -142,7 +143,7 @@ function MainPanel() {
             <img src={loader} alt='loading...' />
           </Loader>
         ) : isError ? (
-          <p>Errror</p>
+          <ErrorUI onError={() => handleFetchOrgRepos(organization?.login)} />
         ) : (
           <>
             <MainPanelRow>
