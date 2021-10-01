@@ -6,7 +6,6 @@ import { handleApiErrorCodes } from "./methods";
 const defaults = {
   headers: () => ({
     "Content-Type": "application/json",
-    //   Authorization: token ? `Bearer ${token}` : undefined,
   }),
   error: 503,
 };
